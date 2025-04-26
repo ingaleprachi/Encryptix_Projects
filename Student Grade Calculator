@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+public class StudentGradeCalculator {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Input student name
+        System.out.print("Enter the student's name: ");
+        String studentName = input.nextLine();
+
+        // Ask the user for the number of subjects
+        System.out.print("Enter the number of subjects: ");
+        int numberOfSubjects = input.nextInt();
+
+        // Initialize an array to store marks for each subject
+        double[] marks = new double[numberOfSubjects];
+        double totalMarks = 0;
+        double highestMarks = 0;
+        double lowestMarks = 100; // Start with maximum possible mark
+
+        // Take input for marks obtained in each subject
+        for (int i = 0; i < numberOfSubjects; i++) {
+            System.out.print("Enter marks obtained in Subject " + (i + 1) + " (out of 100): ");
+            marks[i] = input.nextDouble();
+
+            // Validate marks input
+            while (marks[i] < 0 || marks[i] > 100) {
+                System.out.println("Invalid marks. Please enter a value between 0 and 100.");
+                System.out.print("Enter marks obtained in Subject " + (i + 1) + " (out of 100): ");
+                marks[i] = input.nextDouble();
+            }
+
+            // Sum up the marks
+            totalMarks += marks[i];
+
+            // Track highest and lowest marks
+            if (marks[i] > highestMarks) {
+                highestMarks = marks[i];
+            }
+            if (marks[i] < lowestMarks) {
+                lowestMarks = marks[i];
+            }
+        }
+
+        // Calculate the average percentage
+        double averagePercentage = totalMarks / numberOfSubjects;
+
+        // Determine the grade and remarks based on average percentage
+        String grade;
+        String remarks;
+        if (averagePercentage >= 90) {
+            grade = "A";
+            remarks = "Excellent";
+        } else if (averagePercentage >= 80) {
+            grade = "B";
+            remarks = "Very Good";
+        } else if (averagePercentage >= 70) {
+            grade = "C";
+            remarks = "Good";
+        } else if (averagePercentage >= 60) {
+            grade = "D";
+            remarks = "Satisfactory";
+        } else if (averagePercentage >= 50) {
+            grade = "E";
+            remarks = "Needs Improvement";
+        } else {
+            grade = "F";
+            remarks = "Fail";
+        }
+
+        // Display the results
+        System.out.println("\n--- Results for " + studentName + " ---");
+        System.out.println("Total Marks: " + totalMarks);
+        System.out.printf("Average Percentage: %.2f%%\n", averagePercentage);
+        System.out.println("Grade: " + grade);
+        System.out.println("Remarks: " + remarks);
+        System.out.println("Highest Marks: " + highestMarks);
+        System.out.println("Lowest Marks: " + lowestMarks);
+
+        input.close();
+    }
+}
